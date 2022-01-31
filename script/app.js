@@ -26,19 +26,38 @@ allLinks.forEach(function (linkEl) {
 				top: 0,
 				behavior: "smooth",
 			});
-			//scrool to othe links
+		//scrool to othe links
 		if (href !== "#" && href.startsWith("#")) {
 			const sectionEl = document.querySelector(href);
-			sectionEl.scrollIntoView({behaviour: "smooth"})
+			sectionEl.scrollIntoView({ behaviour: "smooth" });
 		}
-		//close mobile menu 
-		if(linkEl.classList.contains('main-nav-link'))
-		header.classList.toggle("nav-open")
-
+		//close mobile menu
+		if (linkEl.classList.contains("main-nav-link"))
+			header.classList.toggle("nav-open");
 	});
 });
 
+//Sticky Nav
+const sectionHeroEl = document.querySelector(".section-hero");
 
+const obs = new IntersectionObserver(
+	function (entries) {
+		const ent = entries[0];
+		console.log(ent);
+		if (ent.isIntersecting === false) {
+			document.body.classList.add("sticky");
+		}
+		if (ent.isIntersecting === true) {
+			document.body.classList.remove("sticky");
+		}
+	},
+	{
+		root: null,
+		treshold: 0,
+		rootMargin: '-80px',
+	}
+);
+obs.observe(sectionHeroEl);
 
 function checkFlexGap() {
 	let flex = document.createElement("div");
